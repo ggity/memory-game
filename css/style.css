@@ -1,0 +1,165 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    --sirina-tabele: 30%;
+    --js-yellow: #f7df1e;
+    /* promjenjive iznad treba srediti */
+    /* dodati neke za pozadine, mozda za velicunu kartica.. */
+    margin: 0%;
+    /* boje */
+    background-color: rgba(0, 0, 0, 1);
+    height: 100vh;
+    color: var(--js-yellow);
+
+}
+
+.overlay-container {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
+
+.game-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 2em;
+    padding: 1em;
+}
+
+.game-options {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    align-items: center;
+    gap: 2em;
+    width: var(--sirina-tabele);
+}
+
+h1,
+p,
+span {
+    margin: 0;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.game-info-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-info {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 1em;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card {
+    aspect-ratio: 3/4;
+    height: 220px;
+    border-radius: 1em;
+    position: relative;
+    cursor: pointer;
+}
+
+.flipped .card-side {
+    transform: rotateY(180deg);
+}
+
+.card-side {
+    border-radius: 1em;
+    position: absolute;
+    inset: 0;
+    padding: .2em;
+    transition: 1s;
+    transition-property: transform;
+    background-color: var(--js-yellow);
+}
+
+.card-back {
+    backface-visibility: hidden;
+}
+
+.card-side-container {
+    border-radius: 1em;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.circle {
+    --circle-size: 30px;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    background-color: var(--js-yellow);
+    border-radius: 50%;
+    align-self: center;
+}
+
+
+.back-side-container>img {
+    width: 50px;
+    margin: 10px;
+}
+
+.back-side-container>img:nth-child(3) {
+    transform: rotate(180deg);
+    align-self: flex-end;
+}
+
+.card-back:hover {
+    background-color: rebeccapurple;
+}
+
+.card-face-img {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-self: center;
+    margin: 20% 0;
+}
+.card-face-img path {
+    fill: var(--js-yellow);
+}
+
+/* .card-face { */
+/* background-color: var(--js-yellow); */
+/* } */
+
+/* .card-face:hover {} */
