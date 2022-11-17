@@ -65,7 +65,6 @@ class MemoryGame {
         this.timeRemaining = this.totalTime;
         this.timer.innerText = this.totalTime;
         this.ticker.innerText = this.totalClicks;
-
         this.shuffleCards();
         this.countDown = this.startCountDown();
     }
