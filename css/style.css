@@ -8,14 +8,14 @@
 
 body {
     /* font-family: 'Roboto', sans-serif; */
-    font-family: Arial, Helvetica, sans-serif;
-    --sirina-tabele: 30%;
+    --sirina-tabele: 50%;
     --js-yellow: #ffc800;
     --background-color: #2a2a30;
     margin: 0%;
-    background-color: var(--background-color);
     height: 100vh;
+    background-color: var(--background-color);
     color: var(--js-yellow);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .overlay-container {
@@ -35,13 +35,12 @@ body {
     display: flex;
 }
 
-
 .game-container {
     display: flex;
     align-items: center;
     flex-direction: column;
     height: 100%;
-    gap: 2em;
+    gap: 1.2rem;
     padding: 1em;
 }
 
@@ -147,6 +146,19 @@ h1 {
 
 .card-face-img path {
     fill: var(--js-yellow);
+}
+
+.game-footer>h4 {
+    margin: 0;
+    padding-bottom: 1em;
+}
+
+.game-footer a {
+    color: inherit;
+}
+
+.game-footer a:hover {
+    color: orange;
 }
 
 /* 
