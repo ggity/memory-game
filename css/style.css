@@ -165,6 +165,8 @@ h1 {
 @media screen and (max-width: 480px) {
     .card {
         height: 130px;
+        /* property below removes blue highlight on touch */
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     .card-grid {

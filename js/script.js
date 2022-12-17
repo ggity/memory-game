@@ -1,14 +1,11 @@
 class AudioController {
 
-    // konstruktor deklarisemo pomocu kljucne rijeci constructor
     constructor() {
-        // pomocu kljucne rijeci this deklarisemo polja klase
         this.bgMusic = new Audio("audio/creepy.mp3");
         this.flipSound = new Audio("audio/flip.wav");
         this.matchSound = new Audio("audio/match.wav");
         this.victorySound = new Audio("audio/victory.wav");
         this.gameOverSound = new Audio("audio/gameover.wav");
-
         this.bgMusic.volume = 0.5;
         this.bgMusic.loop = true;
     }
@@ -36,14 +33,12 @@ class AudioController {
 
     gameOver() {
         this.stopMusic();
-        // nesto ne valja ovde sa muzikom
         this.gameOverSound.play();
     }
 
 }
 
 class MemoryGame {
-    // kreira igru sa inicijalnim podesavanjima
     constructor(totalTime, cards) {
         this.cardsArray = cards;
         this.totalTime = totalTime;
@@ -53,9 +48,6 @@ class MemoryGame {
         this.timer.innerText = this.totalTime;
     }
 
-
-    // startuje igru sa nekim inicijalnim podesavanjima
-    // metod start koristicemo i na restart i na game over...
     startGame() {
         this.makeCardsData(this.cardsArray);
         this.cardToCheck = null;
@@ -69,9 +61,6 @@ class MemoryGame {
         this.countDown = this.startCountDown();
     }
 
-    // init cards
-    // pomocni utility metod
-    // metod koji postavlja neki data na kartice, nemam slike sad
     makeCardsData(cards) {
         let cardInfo = 1;
         for (let i = 0; i < cards.length; i++) {
@@ -82,7 +71,6 @@ class MemoryGame {
         }
     }
 
-    // metod koji treba da izmjesa sve karte 
     shuffleCards() {
         this.busy = true;
         for (let i = 0; i < this.cardsArray.length; i++) {
@@ -93,12 +81,10 @@ class MemoryGame {
         this.busy = false;
     }
 
-    // provjerava da li moze okrenuti kartu
     canFlipCard(card) {
         return !this.busy && !this.matchedCards.includes(card) && card !== this.cardToCheck;
     }
 
-    // okrece kartu ako zadovoljava uslove odredjene
     flipCard(card) {
         if (this.canFlipCard(card)) {
             this.audio.flip();
@@ -114,7 +100,6 @@ class MemoryGame {
         }
     }
 
-    // provjerava da li se kate poklapaju
     checkForCardMatch(card) {
         if (card.dataset.cardInfo === this.cardToCheck.dataset.cardInfo)
             this.cardMatch(card, this.cardToCheck);
@@ -124,7 +109,6 @@ class MemoryGame {
         this.cardToCheck = null;
     }
 
-    // ukoliko se karte poklapaju uradi sledece
     cardMatch(card1, card2) {
         this.matchedCards.push(card1);
         this.matchedCards.push(card2);
@@ -134,7 +118,6 @@ class MemoryGame {
         }
     }
 
-    // ukoliko se karte ne poklapaju uradi sledece
     cardMisMatch(card1, card2) {
         this.busy = true;
         setTimeout(() => {
@@ -144,7 +127,6 @@ class MemoryGame {
         }, 1000);
     }
 
-    // metod koji vraca tajmer mozda
     startCountDown() {
         return setInterval(() => {
             this.timeRemaining--;
@@ -155,15 +137,12 @@ class MemoryGame {
         }, 1000);
     }
 
-    // metod koji sakriva sve karte
     hideCards() {
         this.cardsArray.forEach(card => {
             card.classList.remove("flipped");
-            // card.classList.remove("matched");
         });
     }
 
-    // kada je isteklo vrijeme resetujem tajmer, pustam zvuk, sakrivam karte i izbacujem poruku
     gameOver() {
         this.audio.gameOver();
         this.hideCards();
@@ -171,7 +150,6 @@ class MemoryGame {
         document.getElementById("game-over-text").classList.add("visible");
     }
 
-    // kada je korisnik pobjedio isto kao i za game over samo druga poruka
     victory() {
         this.audio.victory();
         document.getElementById("victory-text").classList.add("visible");
@@ -184,33 +162,27 @@ class MemoryGame {
 }
 
 
-// metoda ready postavlja event listenere na overlay kontejnere i sve karete u igrici
 function ready() {
     let overlays = Array.from(document.getElementsByClassName("overlay-container"));
     let cards = Array.from(document.getElementsByClassName("card"));
 
     let game = new MemoryGame(50, cards);
 
-    // dodaje event listenere za svaki overlay 
     overlays.forEach(overlay => {
         overlay.addEventListener('click', e => {
             overlay.classList.remove("visible");
-            // ukoliko pritisnemo overlay svaki put pocinjemo novu igru
             game.startGame();
         });
     });
 
-    // dodaje event listnere na svaku kartu
     cards.forEach(card => {
         card.addEventListener('click', e => {
-            // card.classList.toggle("flipped");
             game.flipCard(card);
         });
     });
 
 }
 
-// ukoliko se dokument nije ucitao, stavlja event listener, pa kada se ucita pokrece metodu ready, a ukoliko se ucitao odma pokrece metodu ready
 if (document.readyState === "loading") {
     document.addEventListener('DOMContentloaded', ready());
 } else {
